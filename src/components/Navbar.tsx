@@ -9,7 +9,6 @@ import { locations } from "@/content/locations";
 
 const navLinks = [
   { label: "Menu", href: "/menu" },
-  { label: "Events", href: "/events" },
   { label: "Contact", href: "/contact" },
 ];
 

@@ -344,28 +344,6 @@ export default function LocationDetail({ location }: LocationDetailProps) {
           </div>
         </section>
 
-        {/* ── Events Link ── */}
-        <section data-section className="mt-24">
-          <h2 data-animate className="font-serif text-3xl font-bold text-cream md:text-4xl">
-            Events at {location.name}
-          </h2>
-          <div data-animate className="mt-4 h-px w-16 bg-amber/40" />
-          <p data-animate className="mt-6 text-warm-gray">
-            Check out what&apos;s happening at this location — from live music to tastings and specials.
-          </p>
-          <div data-animate className="mt-8">
-            <Link
-              href={`/events/${location.slug}`}
-              className="group inline-flex items-center gap-2 rounded-sm border border-amber px-8 py-3 text-sm tracking-[0.2em] uppercase text-amber transition-all duration-300 hover:bg-amber hover:text-background"
-            >
-              View Events
-              <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-          </div>
-        </section>
-
         {/* ── CTA ── */}
         <section data-section className="mt-24 border-t border-charcoal-light pt-16">
           <div data-animate className="text-center">

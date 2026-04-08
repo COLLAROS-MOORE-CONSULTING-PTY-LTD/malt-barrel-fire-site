@@ -86,12 +86,6 @@ export default function Footer() {
                 Menu
               </Link>
               <Link
-                href="/events"
-                className="block text-sm text-warm-gray transition-colors hover:text-cream"
-              >
-                Events
-              </Link>
-              <Link
                 href="/book"
                 className="block text-sm text-warm-gray transition-colors hover:text-cream"
               >
