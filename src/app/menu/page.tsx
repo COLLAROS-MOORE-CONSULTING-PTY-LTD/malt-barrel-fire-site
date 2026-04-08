@@ -1,33 +1,15 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
-
-const locations = [
-  {
-    slug: "silver-lakes",
-    name: "Silver Lakes & Queenswood",
-    pdf: "/menu-silverlakes-queenswood.pdf",
-  },
-  {
-    slug: "monte-casino",
-    name: "Montecasino",
-    pdf: "/menu-montecasino.pdf",
-  },
-  {
-    slug: "midrand",
-    name: "Midrand",
-    pdf: "/menu-midrand.pdf",
-  },
-];
+import { locations } from "@/content/locations";
 
 export default function MenuPage() {
-  const [selectedLocation, setSelectedLocation] = useState(locations[0].slug);
   const headerRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
 
-  const currentLocation = locations.find((l) => l.slug === selectedLocation)!;
-
+  // Header entrance animation
   useEffect(() => {
     if (!headerRef.current) return;
     const els = headerRef.current.querySelectorAll("[data-animate]");
@@ -39,6 +21,21 @@ export default function MenuPage() {
       ease: "power3.out",
       stagger: 0.12,
       delay: 0.3,
+    });
+  }, []);
+
+  // Cards entrance animation
+  useEffect(() => {
+    if (!cardsRef.current) return;
+    const cards = cardsRef.current.querySelectorAll("[data-card]");
+    gsap.set(cards, { y: 40, opacity: 0 });
+    gsap.to(cards, {
+      y: 0,
+      opacity: 1,
+      duration: 0.6,
+      ease: "power2.out",
+      stagger: 0.1,
+      delay: 0.5,
     });
   }, []);
 
@@ -64,58 +61,72 @@ export default function MenuPage() {
             Malt Barrel &amp; Fire
           </p>
           <h1 data-animate className="font-serif text-5xl font-bold text-cream md:text-7xl">
-            The Menu
+            Our Menus
           </h1>
           <div
             data-animate
             className="mt-4 h-px w-20 bg-gradient-to-r from-transparent via-amber/50 to-transparent"
           />
+          <p data-animate className="mt-6 max-w-md text-center text-warm-gray">
+            Select a location to view our full menu
+          </p>
         </div>
       </div>
 
-      <div className="mx-auto max-w-5xl px-6 pt-12 md:px-12">
-        {/* Location selector */}
-        <div className="mb-10">
-          <p className="mb-4 text-center text-xs tracking-[0.3em] uppercase text-warm-gray/60">
-            Select Location
-          </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            {locations.map((loc) => (
-              <button
-                key={loc.slug}
-                onClick={() => setSelectedLocation(loc.slug)}
-                className={`cursor-pointer rounded-sm px-6 py-2.5 text-xs tracking-[0.15em] uppercase transition-all ${
-                  selectedLocation === loc.slug
-                    ? "border border-amber bg-amber/10 text-amber"
-                    : "border border-charcoal-light text-warm-gray hover:border-amber/30 hover:text-cream"
-                }`}
-              >
-                {loc.name}
-              </button>
-            ))}
-          </div>
-        </div>
+      {/* Location cards */}
+      <div className="mx-auto max-w-5xl px-6 py-16 md:px-12">
+        <div
+          ref={cardsRef}
+          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
+        >
+          {locations.map((loc) => (
+            <a
+              key={loc.slug}
+              href={loc.menuPdf}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-card
+              className="group relative flex flex-col items-center rounded-sm border border-charcoal-light bg-charcoal/20 p-8 text-center transition-all duration-300 hover:border-amber/40 hover:bg-charcoal/40 hover:shadow-[0_0_40px_rgba(212,145,26,0.1)]"
+            >
+              {/* Icon */}
+              <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full border border-amber/30 bg-amber/5 transition-all group-hover:border-amber group-hover:bg-amber/10">
+                <svg
+                  className="h-6 w-6 text-amber"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={1.5}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  />
+                </svg>
+              </div>
 
-        {/* View Menu button */}
-        <div className="flex flex-col items-center gap-6 py-10">
-          <p className="text-sm text-warm-gray/60">
-            Viewing menu for{" "}
-            <span className="text-cream">{currentLocation.name}</span>
-          </p>
-          
-            href={currentLocation.pdf}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-sm border border-amber bg-amber/10 px-10 py-4 text-sm tracking-[0.2em] uppercase text-amber transition-all hover:bg-amber hover:text-charcoal"
-          >
-            View Menu
-          </a>
+              {/* Location name */}
+              <h2 className="font-serif text-xl font-bold text-cream transition-colors group-hover:text-amber">
+                {loc.name}
+              </h2>
+
+              {/* Tagline */}
+              <p className="mt-2 text-xs text-warm-gray/60">
+                {loc.tagline}
+              </p>
+
+              {/* Button */}
+              <div className="mt-6 rounded-sm border border-amber/50 px-6 py-2 text-xs tracking-[0.15em] uppercase text-amber transition-all group-hover:border-amber group-hover:bg-amber group-hover:text-background">
+                View Menu
+              </div>
+            </a>
+          ))}
         </div>
 
         {/* Note */}
-        <div className="border-t border-charcoal-light py-12 text-center">
+        <div className="mt-16 border-t border-charcoal-light pt-12 text-center">
           <p className="text-xs text-warm-gray/50">
-            Prices are in ZAR. Menu items and availability may vary by location and season.
+            Menus open as PDF files. Prices are in ZAR. Items and availability may vary by location and season.
           </p>
         </div>
       </div>

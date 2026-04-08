@@ -248,46 +248,25 @@ export default function LocationDetail({ location }: LocationDetailProps) {
           </div>
         </section>
 
-        {/* ── Menu Availability ── */}
+        {/* ── Menu ── */}
         <section data-section className="mt-24">
           <h2 data-animate className="font-serif text-3xl font-bold text-cream md:text-4xl">
-            Menus Available
+            Our Menu
           </h2>
           <div data-animate className="mt-4 h-px w-16 bg-amber/40" />
 
-          <div data-animate className="mt-10 flex flex-wrap gap-3">
-            {location.menus.main && (
-              <Link
-                href={`/menu?location=${location.slug}`}
-                className="rounded-sm border border-charcoal-light px-5 py-2.5 text-xs tracking-[0.15em] uppercase text-cream transition-all hover:border-amber/40 hover:text-amber"
-              >
-                Main Menu
-              </Link>
-            )}
-            {location.menus.drinks && (
-              <Link
-                href={`/menu?location=${location.slug}`}
-                className="rounded-sm border border-charcoal-light px-5 py-2.5 text-xs tracking-[0.15em] uppercase text-cream transition-all hover:border-amber/40 hover:text-amber"
-              >
-                Drinks Menu
-              </Link>
-            )}
-            {location.menus.sushi && (
-              <Link
-                href={`/menu?location=${location.slug}`}
-                className="rounded-sm border border-amber/30 bg-amber/5 px-5 py-2.5 text-xs tracking-[0.15em] uppercase text-amber transition-all hover:border-amber hover:bg-amber/10"
-              >
-                Sushi Menu
-              </Link>
-            )}
-            {location.menus.signature && (
-              <Link
-                href={`/menu?location=${location.slug}`}
-                className="rounded-sm border border-amber/30 bg-amber/5 px-5 py-2.5 text-xs tracking-[0.15em] uppercase text-amber transition-all hover:border-amber hover:bg-amber/10"
-              >
-                Signature Menu
-              </Link>
-            )}
+          <div data-animate className="mt-10">
+            <a
+              href={location.menuPdf}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-3 rounded-sm border border-amber bg-amber px-8 py-4 text-sm tracking-[0.2em] uppercase text-background transition-all duration-300 hover:bg-amber-light hover:shadow-[0_0_40px_rgba(212,145,26,0.2)]"
+            >
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              View Menu
+            </a>
           </div>
         </section>
 
