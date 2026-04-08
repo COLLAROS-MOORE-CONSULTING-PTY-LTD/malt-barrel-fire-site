@@ -61,7 +61,7 @@ export default function MenuPage() {
             Malt Barrel &amp; Fire
           </p>
           <h1 data-animate className="font-serif text-5xl font-bold text-cream md:text-7xl">
-            Our Menus
+            View Our Menus
           </h1>
           <div
             data-animate
