@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
 const menuData = [
@@ -52,6 +52,19 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
   const itemsRef = useRef<HTMLDivElement>(null);
   const [activeCategory, setActiveCategory] = useState(0);
 
+  const animateItems = useCallback(() => {
+    if (!itemsRef.current) return;
+    const items = itemsRef.current.querySelectorAll("[data-menu-item]");
+    gsap.set(items, { y: 20, opacity: 0 });
+    gsap.to(items, {
+      y: 0,
+      opacity: 1,
+      duration: 0.4,
+      ease: "power2.out",
+      stagger: 0.08,
+    });
+  }, []);
+
   useEffect(() => {
     const overlay = overlayRef.current;
     const content = contentRef.current;
@@ -71,20 +84,7 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
     return () => {
       document.body.style.overflow = "";
     };
-  }, []);
-
-  const animateItems = () => {
-    if (!itemsRef.current) return;
-    const items = itemsRef.current.querySelectorAll("[data-menu-item]");
-    gsap.set(items, { y: 20, opacity: 0 });
-    gsap.to(items, {
-      y: 0,
-      opacity: 1,
-      duration: 0.4,
-      ease: "power2.out",
-      stagger: 0.08,
-    });
-  };
+  }, [animateItems]);
 
   const switchCategory = (index: number) => {
     if (index === activeCategory || !itemsRef.current) return;
@@ -107,7 +107,7 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
   useEffect(() => {
     const timer = setTimeout(animateItems, 50);
     return () => clearTimeout(timer);
-  }, [activeCategory]);
+  }, [activeCategory, animateItems]);
 
   const handleClose = () => {
     const overlay = overlayRef.current;

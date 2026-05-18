@@ -58,7 +58,7 @@ export default function MenuPage() {
           className="absolute inset-0 flex flex-col items-center justify-center"
         >
           <p data-animate className="mb-3 text-sm tracking-[0.3em] uppercase text-amber">
-            Malt Barrel &amp; Fire
+            MALT Barrel &amp; Fire
           </p>
           <h1 data-animate className="font-serif text-5xl font-bold text-cream md:text-7xl">
             View Our Menus

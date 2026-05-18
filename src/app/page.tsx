@@ -113,6 +113,50 @@ function LocationCard({ loc, index }: { loc: typeof locations[0]; index: number 
   );
 }
 
+const menuShowcase = [
+  {
+    title: "Prime Cuts",
+    image: "/images/food/ribs.jpg",
+    alt: "Plated MALT ribs and prime cuts",
+    copy: "Generous plates, steaks, ribs and signature dishes made for the table.",
+  },
+  {
+    title: "Seafood",
+    image: "/images/menu-prawns.jpg",
+    alt: "MALT prawns served at the table",
+    copy: "Prawns, seafood plates and bright coastal flavours across the menu.",
+  },
+  {
+    title: "Cocktails",
+    image: "/images/drinks/espresso-martini.jpg",
+    alt: "MALT espresso martini cocktail",
+    copy: "Classic cocktails, signature serves and premium spirits from the bar.",
+  },
+];
+
+const newToMalt = [
+  {
+    label: "Sushi",
+    title: "MALT Signature Sushi",
+    copy: "Rock & Roll, Tiger Roll, Crunchy Roll and platters at select locations.",
+  },
+  {
+    label: "Seafood",
+    title: "Tiger Giants",
+    copy: "Large prawns with lemon butter, Porto sauce or peri-peri.",
+  },
+  {
+    label: "Cocktails",
+    title: "Malt Espresso Martini",
+    copy: "Vodka, Kahlua, Illy espresso, vanilla, cream and cocoa.",
+  },
+  {
+    label: "Signature",
+    title: "Tomahawk Steak",
+    copy: "A 900g rib-eye on the bone, served as a proper occasion dish.",
+  },
+];
+
 export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null);
   const heroTextRef = useRef<HTMLDivElement>(null);
@@ -157,7 +201,6 @@ export default function Home() {
 
       items.forEach((item) => {
         const direction = (item as HTMLElement).dataset.from || "bottom";
-        const delay = parseFloat((item as HTMLElement).dataset.delay || "0");
         const initial: gsap.TweenVars = { opacity: 0 };
 
         switch (direction) {
@@ -255,14 +298,14 @@ export default function Home() {
         className="relative flex h-screen items-center justify-center overflow-hidden"
       >
         <Image
-          src="/images/hero-interior.jpg"
-          alt="Malt Barrel & Fire interior"
+          src="/images/locations/midrand-hero.jpg"
+          alt="MALT Barrel & Fire Midrand interior"
           fill
-          className="object-cover object-center ken-burns"
+          className="object-cover object-[54%_45%] ken-burns"
           priority
           quality={90}
         />
-        <div className="absolute inset-0 bg-black/65" />
+        <div className="absolute inset-0 bg-black/68" />
         {/* Vignette */}
         <div className="absolute inset-0 vignette" />
         <div
@@ -287,16 +330,19 @@ export default function Home() {
             data-hero-animate
             className="mb-5 text-xs tracking-[0.5em] uppercase text-amber/90 md:text-sm"
           >
-            Wood-Fired Cuisine &bull; Rare Spirits &bull; Live Flame
+            Dining &bull; Sushi &bull; Cocktails &bull; Premium Spirits
           </p>
           <h1
             data-hero-animate
-            className="font-serif text-5xl font-bold leading-[1.05] tracking-tight text-cream md:text-7xl lg:text-8xl"
+            className="font-sans leading-none text-cream"
             style={{ textShadow: "0 2px 30px rgba(0,0,0,0.7)" }}
           >
-            Malt Barrel
-            <br />
-            <span className="text-amber">&amp;</span> Fire
+            <span className="block text-6xl font-black tracking-[0.18em] text-amber md:text-8xl lg:text-9xl">
+              MALT
+            </span>
+            <span className="mt-3 block text-xl font-semibold tracking-[0.28em] text-cream md:text-3xl lg:text-4xl">
+              Barrel &amp; Fire
+            </span>
           </h1>
           <div
             data-hero-animate
@@ -307,13 +353,13 @@ export default function Home() {
             className="text-lg tracking-[0.4em] uppercase text-cream/70 md:text-xl"
             style={{ textShadow: "0 1px 12px rgba(0,0,0,0.5)" }}
           >
-            Smoke. Spirit. Flame.
+            Dine. Sip. Stay awhile.
           </p>
           <p
             data-hero-animate
             className="mx-auto mt-3 max-w-lg text-sm text-cream/50 leading-relaxed md:text-base"
           >
-            An atmosphere forged in flame — four locations across Gauteng
+            A contemporary dining and drinks destination with bold plates, sushi, cocktails and premium pours across Gauteng.
           </p>
           <div
             data-hero-animate
@@ -369,13 +415,13 @@ export default function Home() {
       <section data-section className="relative py-32 px-6 md:px-12">
         <div className="mx-auto max-w-4xl text-center">
           <p data-animate className="mb-5 text-sm tracking-[0.4em] uppercase text-amber">
-            The Experience
+            The MALT Experience
           </p>
           <h2
             data-animate
             className="font-serif text-3xl font-bold leading-snug text-cream md:text-5xl lg:text-6xl"
           >
-            Where fire meets craft
+            Built for the table, the glass and the night out
           </h2>
           <div
             data-animate
@@ -385,10 +431,9 @@ export default function Home() {
             data-animate
             className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-warm-gray md:text-xl"
           >
-            Malt Barrel &amp; Fire is a gastropub that prides itself in delicious cuisine, warm
-            welcoming service and a lively atmosphere. From handcrafted cocktails and rare spirits to
-            live sports, outdoor seating, and unforgettable nights — four locations across Gauteng,
-            each with its own character.
+            MALT Barrel &amp; Fire brings together generous food, fresh sushi at select locations,
+            crafted cocktails, premium pours and a room with energy. It is polished without being
+            stiff, social without losing the food, and built for everything from lunch to late nights.
           </p>
         </div>
       </section>
@@ -430,60 +475,90 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ──────────── FOOD SHOWCASE ──────────── */}
-      <section data-section className="relative py-32 px-6 md:px-12 overflow-hidden">
+      {/* ──────────── MENU SHOWCASE ──────────── */}
+      <section data-section className="relative overflow-hidden px-6 py-32 md:px-12">
         <div className="absolute inset-0 bg-charcoal/40" />
         <div className="relative mx-auto max-w-6xl">
-          <div className="grid items-center gap-16 lg:grid-cols-2">
-            <div>
-              <p data-animate data-from="left" className="mb-5 text-sm tracking-[0.4em] uppercase text-amber">
-                From the Kitchen
-              </p>
-              <h2
-                data-animate
-                data-from="left"
-                className="font-serif text-4xl font-bold text-cream md:text-5xl lg:text-6xl"
-              >
-                Fired to Perfection
-              </h2>
-              <div data-animate data-from="left" className="mt-5 h-px w-20 bg-gradient-to-r from-amber/40 to-transparent" />
-              <p data-animate data-from="left" className="mt-8 text-lg leading-relaxed text-warm-gray md:text-xl">
-                Every dish tells a story of smoke and flame. Our chefs source the finest
-                cuts, freshest seafood, and seasonal produce — then let the fire do the talking.
-              </p>
-              <div data-animate data-from="left" className="mt-10 flex flex-wrap gap-4">
-                <Link
-                  href="/menu"
-                  className="group inline-flex items-center gap-2 text-sm tracking-[0.2em] uppercase text-amber transition-colors hover:text-amber-light"
-                >
-                  View Full Menu
-                  <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
-                </Link>
-              </div>
-            </div>
+          <div className="max-w-3xl">
+            <p data-animate data-from="left" className="mb-5 text-sm tracking-[0.4em] uppercase text-amber">
+              From the Menu
+            </p>
+            <h2
+              data-animate
+              data-from="left"
+              className="font-serif text-4xl font-bold text-cream md:text-5xl lg:text-6xl"
+            >
+              More than flame
+            </h2>
+            <div data-animate data-from="left" className="mt-5 h-px w-20 bg-gradient-to-r from-amber/40 to-transparent" />
+            <p data-animate data-from="left" className="mt-8 text-lg leading-relaxed text-warm-gray md:text-xl">
+              From sushi and seafood to prime cuts, casual plates and cocktails, the menu is built
+              around choice. Come for a full table, a quick bite, a drink at the bar or something new.
+            </p>
+          </div>
 
-            <div data-animate data-from="right" className="grid grid-cols-2 gap-5">
-              <div className="relative aspect-[3/4] overflow-hidden rounded-sm">
-                <Image
-                  src="/images/food/fire-dish.jpg"
-                  alt="Fire-grilled dish"
-                  fill
-                  className="object-cover transition-transform duration-700 hover:scale-105"
-                  sizes="(max-width: 1024px) 50vw, 25vw"
-                />
-              </div>
-              <div className="relative mt-10 aspect-[3/4] overflow-hidden rounded-sm">
-                <Image
-                  src="/images/food/prawns.jpg"
-                  alt="Signature prawns"
-                  fill
-                  className="object-cover transition-transform duration-700 hover:scale-105"
-                  sizes="(max-width: 1024px) 50vw, 25vw"
-                />
-              </div>
+          <div data-animate data-from="bottom" className="mt-14 grid gap-6 md:grid-cols-3">
+            {menuShowcase.map((item) => (
+              <article key={item.title} className="group">
+                <div className="relative aspect-[4/5] overflow-hidden rounded-sm bg-charcoal">
+                  <Image
+                    src={item.image}
+                    alt={item.alt}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </div>
+                <h3 className="mt-5 text-lg font-semibold text-cream">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-warm-gray">{item.copy}</p>
+              </article>
+            ))}
+          </div>
+
+          <div data-animate className="mt-12">
+            <Link
+              href="/menu"
+              className="group inline-flex items-center gap-2 text-sm tracking-[0.2em] uppercase text-amber transition-colors hover:text-amber-light"
+            >
+              View Full Menu
+              <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ──────────── NEW TO MALT ──────────── */}
+      <section data-section className="relative border-y border-charcoal-light px-6 py-24 md:px-12">
+        <div className="mx-auto max-w-6xl">
+          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p data-animate className="mb-5 text-sm tracking-[0.4em] uppercase text-amber">
+                New to MALT
+              </p>
+              <h2 data-animate className="font-serif text-4xl font-bold text-cream md:text-5xl">
+                Dishes, sushi and cocktails to try
+              </h2>
             </div>
+            <p data-animate className="max-w-md text-sm leading-relaxed text-warm-gray">
+              Featured from the current menu data. Sushi is available at select locations.
+            </p>
+          </div>
+
+          <div data-animate className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {newToMalt.map((item) => (
+              <article
+                key={item.title}
+                className="rounded-sm border border-charcoal-light bg-charcoal/30 p-6 transition-all duration-300 hover:border-amber/40 hover:bg-charcoal/50"
+              >
+                <p className="text-xs font-semibold tracking-[0.25em] uppercase text-amber">
+                  {item.label}
+                </p>
+                <h3 className="mt-5 text-xl font-semibold text-cream">{item.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-warm-gray">{item.copy}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>

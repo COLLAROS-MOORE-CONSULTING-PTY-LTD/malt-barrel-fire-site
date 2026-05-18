@@ -51,7 +51,7 @@ export default function Footer() {
               className="mb-6 h-12 w-auto"
             />
             <p className="max-w-xs text-sm leading-relaxed text-warm-gray">
-              Wood-fired cuisine, rare spirits, and an atmosphere forged in flame. Four locations across Gauteng.
+              Generous plates, fresh sushi at select locations, crafted cocktails, premium spirits, and easy dining energy across Gauteng.
             </p>
           </div>
 

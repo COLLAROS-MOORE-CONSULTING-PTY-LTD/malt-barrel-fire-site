@@ -16,24 +16,28 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [locationsOpen, setLocationsOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const pathname = usePathname();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const mobileLinksRef = useRef<HTMLDivElement>(null);
-  const scrollProgress = useRef(0);
 
   useEffect(() => {
     const onScroll = () => {
       const y = window.scrollY;
       setScrolled(y > 50);
-      scrollProgress.current = Math.min(y / 300, 1);
+      setScrollProgress(Math.min(y / 300, 1));
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
-    setMobileOpen(false);
-    setLocationsOpen(false);
+    const timer = window.setTimeout(() => {
+      setMobileOpen(false);
+      setLocationsOpen(false);
+    }, 0);
+
+    return () => window.clearTimeout(timer);
   }, [pathname]);
 
   // Staggered mobile menu entrance
@@ -81,7 +85,7 @@ export default function Navbar() {
       <div
         className="absolute bottom-0 left-0 h-px bg-gradient-to-r from-amber/60 via-amber to-amber/60 transition-opacity duration-300"
         style={{
-          width: `${scrollProgress.current * 100}%`,
+          width: `${scrollProgress * 100}%`,
           opacity: scrolled ? 0.5 : 0,
         }}
       />
@@ -92,9 +96,9 @@ export default function Navbar() {
           <Image
             src="/images/logo.png"
             alt="Malt Barrel & Fire"
-            width={160}
-            height={67}
-            className="h-12 w-auto md:h-14"
+            width={190}
+            height={79}
+            className="h-14 w-auto md:h-16"
             priority
           />
         </Link>

@@ -26,7 +26,7 @@ export const locations: Location[] = [
   {
     name: "Midrand",
     slug: "midrand",
-    tagline: "Where the flame was born",
+    tagline: "The flagship MALT experience",
     phone: "011 594 7947",
     email: "info@maltmidrand.co.za",
     address: "Shop 8 Waterfall Walk, Ridge Road, Midrand, 1682",
@@ -49,7 +49,7 @@ export const locations: Location[] = [
   {
     name: "Silver Lakes",
     slug: "silver-lakes",
-    tagline: "Smoke and sophistication on the east side",
+    tagline: "Dining, drinks and east-side energy",
     phone: "012 809 3330",
     email: "info@mymalt.co.za",
     address: "Silver Oaks Crossing Shopping Centre, Silver Lakes, Pretoria",
@@ -72,7 +72,7 @@ export const locations: Location[] = [
   {
     name: "Queenswood",
     slug: "queenswood",
-    tagline: "Fire-forged flavour in the heart of Pretoria",
+    tagline: "Neighbourhood dining in the heart of Pretoria",
     phone: "078 151 7059",
     email: "qc@mymalt.co.za",
     address: "Queens Corner Shopping Centre, Queenswood, Pretoria",

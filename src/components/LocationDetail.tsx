@@ -139,7 +139,7 @@ export default function LocationDetail({ location }: LocationDetailProps) {
             className="mb-3 text-xs tracking-[0.4em] uppercase text-amber/90 md:text-sm"
             style={{ textShadow: "0 1px 8px rgba(0,0,0,0.5)" }}
           >
-            Malt Barrel &amp; Fire
+            MALT Barrel &amp; Fire
           </p>
           <h1
             data-hero-animate

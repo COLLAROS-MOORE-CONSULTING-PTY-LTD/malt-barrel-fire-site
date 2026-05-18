@@ -1,6 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
 @import "tailwindcss";
 
 :root {
+  --font-poppins: "Poppins";
   --background: #0a0806;
   --foreground: #f5ece0;
   --amber: #d4911a;
@@ -24,8 +26,8 @@
   --color-charcoal-light: var(--charcoal-light);
   --color-warm-gray: var(--warm-gray);
   --color-cream: var(--cream);
-  --font-serif: var(--font-playfair);
-  --font-sans: var(--font-lato);
+  --font-serif: var(--font-poppins);
+  --font-sans: var(--font-poppins);
 }
 
 html {
@@ -35,7 +37,7 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-lato), sans-serif;
+  font-family: var(--font-poppins), sans-serif;
 }
 
 /* Hide default cursor on desktop when custom cursor active */
