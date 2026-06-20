@@ -50,9 +50,6 @@ export default function Footer() {
               height={50}
               className="mb-6 h-12 w-auto"
             />
-            <p className="max-w-xs text-sm leading-relaxed text-warm-gray">
-              Generous plates, fresh sushi at select locations, crafted cocktails, premium spirits, and easy dining energy across Gauteng.
-            </p>
           </div>
 
           {/* Locations */}
@@ -134,10 +131,10 @@ export default function Footer() {
         {/* Bottom bar */}
         <div data-footer-animate className="mt-14 border-t border-charcoal-light pt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
           <p className="text-xs text-warm-gray/60">
-            &copy; {new Date().getFullYear()} Collaros &amp; Moore Consulting (PTY) LTD
+            &copy; {new Date().getFullYear()} MALT Barrel &amp; Fire
           </p>
-          <p className="text-xs text-warm-gray/40">
-            All rights reserved.
+          <p className="text-xs text-warm-gray/60">
+            Designed by Benjamin Moore
           </p>
         </div>
       </div>

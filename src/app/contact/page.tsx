@@ -126,10 +126,10 @@ export default function ContactPage() {
             </p>
             <a
               data-animate
-              href="mailto:info@maltbarrelandfire.com"
+              href="mailto:info@maltmidrand.co.za"
               className="mt-4 inline-block text-lg text-amber transition-colors hover:text-amber-light"
             >
-              info@maltbarrelandfire.com
+              info@maltmidrand.co.za
             </a>
           </div>
         </section>

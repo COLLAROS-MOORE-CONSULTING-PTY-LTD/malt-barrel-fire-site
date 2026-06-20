@@ -113,50 +113,6 @@ function LocationCard({ loc, index }: { loc: typeof locations[0]; index: number 
   );
 }
 
-const menuShowcase = [
-  {
-    title: "Prime Cuts",
-    image: "/images/food/ribs.jpg",
-    alt: "Plated MALT ribs and prime cuts",
-    copy: "Generous plates, steaks, ribs and signature dishes made for the table.",
-  },
-  {
-    title: "Seafood",
-    image: "/images/menu-prawns.jpg",
-    alt: "MALT prawns served at the table",
-    copy: "Prawns, seafood plates and bright coastal flavours across the menu.",
-  },
-  {
-    title: "Cocktails",
-    image: "/images/drinks/espresso-martini.jpg",
-    alt: "MALT espresso martini cocktail",
-    copy: "Classic cocktails, signature serves and premium spirits from the bar.",
-  },
-];
-
-const newToMalt = [
-  {
-    label: "Sushi",
-    title: "MALT Signature Sushi",
-    copy: "Rock & Roll, Tiger Roll, Crunchy Roll and platters at select locations.",
-  },
-  {
-    label: "Seafood",
-    title: "Tiger Giants",
-    copy: "Large prawns with lemon butter, Porto sauce or peri-peri.",
-  },
-  {
-    label: "Cocktails",
-    title: "Malt Espresso Martini",
-    copy: "Vodka, Kahlua, Illy espresso, vanilla, cream and cocoa.",
-  },
-  {
-    label: "Signature",
-    title: "Tomahawk Steak",
-    copy: "A 900g rib-eye on the bone, served as a proper occasion dish.",
-  },
-];
-
 export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null);
   const heroTextRef = useRef<HTMLDivElement>(null);
@@ -325,68 +281,31 @@ export default function Home() {
 
         <EmberParticles />
 
-        <div ref={heroTextRef} className="relative z-10 px-6 text-center max-w-5xl mx-auto">
-          <p
-            data-hero-animate
-            className="mb-5 text-xs tracking-[0.5em] uppercase text-amber/90 md:text-sm"
-          >
-            Dining &bull; Sushi &bull; Cocktails &bull; Premium Spirits
-          </p>
+        <div ref={heroTextRef} className="relative z-10 mx-auto max-w-5xl px-6 text-center">
           <h1
             data-hero-animate
-            className="font-sans leading-none text-cream"
-            style={{ textShadow: "0 2px 30px rgba(0,0,0,0.7)" }}
+            className="mx-auto flex items-center justify-center"
           >
-            <span className="block text-6xl font-black tracking-[0.18em] text-amber md:text-8xl lg:text-9xl">
-              MALT
-            </span>
-            <span className="mt-3 block text-xl font-semibold tracking-[0.28em] text-cream md:text-3xl lg:text-4xl">
-              Barrel &amp; Fire
-            </span>
+            <Image
+              src="/images/logo.png"
+              alt="MALT Barrel & Fire"
+              width={360}
+              height={360}
+              className="h-auto w-[clamp(12rem,28vw,23rem)] max-h-[42vh] object-contain drop-shadow-[0_16px_45px_rgba(0,0,0,0.75)]"
+              priority
+            />
           </h1>
           <div
             data-hero-animate
-            className="mx-auto my-6 h-px w-28 bg-gradient-to-r from-transparent via-amber/60 to-transparent"
+            className="mx-auto mt-8 h-px w-24 bg-gradient-to-r from-transparent via-amber/60 to-transparent"
           />
           <p
             data-hero-animate
-            className="text-lg tracking-[0.4em] uppercase text-cream/70 md:text-xl"
-            style={{ textShadow: "0 1px 12px rgba(0,0,0,0.5)" }}
+            className="mx-auto mt-6 max-w-3xl text-lg font-medium tracking-[0.18em] uppercase text-cream/85 md:text-2xl"
+            style={{ textShadow: "0 1px 20px rgba(0,0,0,0.65)" }}
           >
-            Dine. Sip. Stay awhile.
+            Savour the Malt. Share the Moment.
           </p>
-          <p
-            data-hero-animate
-            className="mx-auto mt-3 max-w-lg text-sm text-cream/50 leading-relaxed md:text-base"
-          >
-            A contemporary dining and drinks destination with bold plates, sushi, cocktails and premium pours across Gauteng.
-          </p>
-          <div
-            data-hero-animate
-            className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
-          >
-            <Link
-              href="/menu"
-              className="button-pulse group inline-flex items-center gap-3 rounded-sm border border-amber px-10 py-4 text-sm tracking-[0.25em] uppercase text-amber transition-all duration-300 hover:bg-amber hover:text-background hover:shadow-[0_0_40px_rgba(212,145,26,0.25)]"
-            >
-              Explore Menu
-              <svg
-                className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-            <Link
-              href="/book"
-              className="rounded-sm border border-cream/20 px-10 py-4 text-sm tracking-[0.25em] uppercase text-cream transition-all duration-300 hover:border-amber hover:text-amber hover:bg-amber/5"
-            >
-              Book a Table
-            </Link>
-          </div>
         </div>
 
         {/* Scroll indicator */}
@@ -421,7 +340,7 @@ export default function Home() {
             data-animate
             className="font-serif text-3xl font-bold leading-snug text-cream md:text-5xl lg:text-6xl"
           >
-            Built for the table, the glass and the night out
+            MALT Barrel &amp; Fire is a destination for memorable dining, handcrafted cocktails, premium spirits, and vibrant moments.
           </h2>
           <div
             data-animate
@@ -431,9 +350,8 @@ export default function Home() {
             data-animate
             className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-warm-gray md:text-xl"
           >
-            MALT Barrel &amp; Fire brings together generous food, fresh sushi at select locations,
-            crafted cocktails, premium pours and a room with energy. It is polished without being
-            stiff, social without losing the food, and built for everything from lunch to late nights.
+            Whether you&apos;re joining us for a relaxed lunch, after-work drinks, or a night out,
+            every visit is designed to be savoured.
           </p>
         </div>
       </section>
@@ -475,94 +393,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ──────────── MENU SHOWCASE ──────────── */}
-      <section data-section className="relative overflow-hidden px-6 py-32 md:px-12">
-        <div className="absolute inset-0 bg-charcoal/40" />
-        <div className="relative mx-auto max-w-6xl">
-          <div className="max-w-3xl">
-            <p data-animate data-from="left" className="mb-5 text-sm tracking-[0.4em] uppercase text-amber">
-              From the Menu
-            </p>
-            <h2
-              data-animate
-              data-from="left"
-              className="font-serif text-4xl font-bold text-cream md:text-5xl lg:text-6xl"
-            >
-              More than flame
-            </h2>
-            <div data-animate data-from="left" className="mt-5 h-px w-20 bg-gradient-to-r from-amber/40 to-transparent" />
-            <p data-animate data-from="left" className="mt-8 text-lg leading-relaxed text-warm-gray md:text-xl">
-              From sushi and seafood to prime cuts, casual plates and cocktails, the menu is built
-              around choice. Come for a full table, a quick bite, a drink at the bar or something new.
-            </p>
-          </div>
-
-          <div data-animate data-from="bottom" className="mt-14 grid gap-6 md:grid-cols-3">
-            {menuShowcase.map((item) => (
-              <article key={item.title} className="group">
-                <div className="relative aspect-[4/5] overflow-hidden rounded-sm bg-charcoal">
-                  <Image
-                    src={item.image}
-                    alt={item.alt}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
-                </div>
-                <h3 className="mt-5 text-lg font-semibold text-cream">{item.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-warm-gray">{item.copy}</p>
-              </article>
-            ))}
-          </div>
-
-          <div data-animate className="mt-12">
-            <Link
-              href="/menu"
-              className="group inline-flex items-center gap-2 text-sm tracking-[0.2em] uppercase text-amber transition-colors hover:text-amber-light"
-            >
-              View Full Menu
-              <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ──────────── NEW TO MALT ──────────── */}
-      <section data-section className="relative border-y border-charcoal-light px-6 py-24 md:px-12">
-        <div className="mx-auto max-w-6xl">
-          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p data-animate className="mb-5 text-sm tracking-[0.4em] uppercase text-amber">
-                New to MALT
-              </p>
-              <h2 data-animate className="font-serif text-4xl font-bold text-cream md:text-5xl">
-                Dishes, sushi and cocktails to try
-              </h2>
-            </div>
-            <p data-animate className="max-w-md text-sm leading-relaxed text-warm-gray">
-              Featured from the current menu data. Sushi is available at select locations.
-            </p>
-          </div>
-
-          <div data-animate className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {newToMalt.map((item) => (
-              <article
-                key={item.title}
-                className="rounded-sm border border-charcoal-light bg-charcoal/30 p-6 transition-all duration-300 hover:border-amber/40 hover:bg-charcoal/50"
-              >
-                <p className="text-xs font-semibold tracking-[0.25em] uppercase text-amber">
-                  {item.label}
-                </p>
-                <h3 className="mt-5 text-xl font-semibold text-cream">{item.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-warm-gray">{item.copy}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ──────────── PROUD PARTNERS ──────────── */}
       <section data-section className="relative py-24 px-6 md:px-12 border-t border-b border-charcoal-light">
         <div className="mx-auto max-w-6xl">
@@ -581,18 +411,21 @@ export default function Home() {
           <div
             data-animate
             data-from="scale"
-            className="grid grid-cols-4 gap-8 sm:grid-cols-4 md:grid-cols-8"
+            className="mx-auto grid max-w-5xl grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4 md:gap-x-10"
           >
             {partners.map((partner) => (
               <div
                 key={partner.slug}
-                className="group flex flex-col items-center justify-center gap-3 py-4 transition-all duration-300 hover:opacity-100 opacity-50 hover:scale-105"
+                className="group flex min-h-36 flex-col items-center justify-between gap-3 py-4 opacity-85 transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:opacity-100"
               >
-                {/* Logo placeholder — drop official logos into /public/images/partners/ */}
-                <div className="flex h-14 w-14 items-center justify-center rounded-full border border-charcoal-light bg-charcoal/30 transition-all duration-300 group-hover:border-amber/40 group-hover:bg-charcoal/50">
-                  <span className="text-[10px] font-bold uppercase text-warm-gray/80 group-hover:text-amber transition-colors">
-                    {partner.name.slice(0, 2)}
-                  </span>
+                <div className="relative h-20 w-full max-w-40 drop-shadow-[0_7px_16px_rgba(0,0,0,0.7)]">
+                  <Image
+                    src={partner.logo}
+                    alt={`${partner.name} logo`}
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 640px) 40vw, 160px"
+                  />
                 </div>
                 <span className="text-[10px] tracking-wider uppercase text-warm-gray/60 text-center leading-tight group-hover:text-warm-gray transition-colors">
                   {partner.name}

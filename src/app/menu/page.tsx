@@ -68,7 +68,7 @@ export default function MenuPage() {
             className="mt-4 h-px w-20 bg-gradient-to-r from-transparent via-amber/50 to-transparent"
           />
           <p data-animate className="mt-6 max-w-md text-center text-warm-gray">
-            Select a location to view our full menu
+            Select a location to view food and drinks menus
           </p>
         </div>
       </div>
@@ -80,11 +80,8 @@ export default function MenuPage() {
           className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
         >
           {locations.map((loc) => (
-            <a
+            <article
               key={loc.slug}
-              href={loc.menuPdf}
-              target="_blank"
-              rel="noopener noreferrer"
               data-card
               className="group relative flex flex-col items-center rounded-sm border border-charcoal-light bg-charcoal/20 p-8 text-center transition-all duration-300 hover:border-amber/40 hover:bg-charcoal/40 hover:shadow-[0_0_40px_rgba(212,145,26,0.1)]"
             >
@@ -115,11 +112,25 @@ export default function MenuPage() {
                 {loc.tagline}
               </p>
 
-              {/* Button */}
-              <div className="mt-6 rounded-sm border border-amber/50 px-6 py-2 text-xs tracking-[0.15em] uppercase text-amber transition-all group-hover:border-amber group-hover:bg-amber group-hover:text-background">
-                View Menu
+              <div className="mt-6 flex w-full flex-col gap-3">
+                <a
+                  href={loc.menuPdf}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-sm border border-amber bg-amber px-5 py-2.5 text-xs tracking-[0.15em] uppercase text-background transition-all hover:bg-amber-light"
+                >
+                  View Menu
+                </a>
+                <a
+                  href={loc.drinksMenuPdf}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-sm border border-amber/50 px-5 py-2.5 text-xs tracking-[0.15em] uppercase text-amber transition-all hover:border-amber hover:bg-amber hover:text-background"
+                >
+                  Drinks Menu
+                </a>
               </div>
-            </a>
+            </article>
           ))}
         </div>
 

@@ -40,6 +40,13 @@ export default function Navbar() {
     return () => window.clearTimeout(timer);
   }, [pathname]);
 
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
   // Staggered mobile menu entrance
   useEffect(() => {
     if (!mobileLinksRef.current) return;
@@ -72,11 +79,13 @@ export default function Navbar() {
   const isLocationPage = locations.some(
     (loc) => pathname === `/${loc.slug}` || pathname === `/locations/${loc.slug}`
   );
+  const hideHomepageLogo = pathname === "/" && !scrolled && !mobileOpen;
 
   return (
+    <>
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled || mobileOpen
+        scrolled || mobileOpen || pathname !== "/"
           ? "bg-background/95 shadow-lg shadow-black/20 backdrop-blur-lg"
           : "bg-transparent backdrop-blur-none"
       }`}
@@ -92,7 +101,12 @@ export default function Navbar() {
 
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-12">
         {/* Logo */}
-        <Link href="/" className="relative z-50 flex items-center">
+        <Link
+          href="/"
+          className={`relative z-50 flex items-center transition-opacity duration-300 ${
+            hideHomepageLogo ? "pointer-events-none opacity-0" : "opacity-100"
+          }`}
+        >
           <Image
             src="/images/logo.png"
             alt="Malt Barrel & Fire"
@@ -127,7 +141,7 @@ export default function Navbar() {
 
             {/* Dropdown panel */}
             <div
-              className={`absolute top-full left-1/2 -translate-x-1/2 mt-4 w-56 rounded-sm border border-charcoal-light bg-background/98 backdrop-blur-lg p-2 shadow-xl shadow-black/30 transition-all duration-200 ${
+              className={`absolute top-full left-1/2 -translate-x-1/2 mt-4 w-56 rounded-sm border border-amber/25 bg-background p-2 shadow-2xl shadow-black/60 transition-all duration-200 ${
                 locationsOpen
                   ? "pointer-events-auto opacity-100 translate-y-0"
                   : "pointer-events-none opacity-0 -translate-y-2"
@@ -189,55 +203,57 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile menu */}
-      <div
-        className={`fixed inset-0 top-0 z-40 flex flex-col items-center justify-center bg-background/98 backdrop-blur-lg transition-all duration-500 md:hidden ${
-          mobileOpen
-            ? "pointer-events-auto opacity-100"
-            : "pointer-events-none opacity-0"
-        }`}
-      >
-        <div ref={mobileLinksRef} className="flex flex-col items-center gap-6">
-          {/* Locations header */}
-          <p data-mobile-link className="text-xs tracking-[0.3em] uppercase text-amber/60">
-            Our Locations
-          </p>
-          {locations.map((loc) => (
-            <Link
-              key={loc.slug}
-              href={`/${loc.slug}`}
-              data-mobile-link
-              className={`font-serif text-2xl transition-colors ${
-                pathname === `/${loc.slug}` ? "text-amber" : "text-cream/80 hover:text-cream"
-              }`}
-            >
-              {loc.name}
-            </Link>
-          ))}
-
-          <div data-mobile-link className="my-2 h-px w-16 bg-charcoal-light" />
-
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              data-mobile-link
-              className={`font-serif text-2xl transition-colors ${
-                pathname === link.href ? "text-amber" : "text-cream"
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
-          <Link
-            href="/book"
-            data-mobile-link
-            className="mt-4 rounded-sm border border-amber px-10 py-4 text-sm tracking-[0.25em] uppercase text-amber transition-all hover:bg-amber hover:text-background"
-          >
-            Book a Table
-          </Link>
-        </div>
-      </div>
     </nav>
+
+    {/* Keep the full-screen panel outside the nav stacking context. */}
+    <div
+      className={`fixed inset-0 z-40 isolate flex min-h-dvh items-center justify-center overflow-y-auto bg-[#0a0806] px-6 pb-10 pt-28 transition-opacity duration-300 md:hidden ${
+        mobileOpen
+          ? "pointer-events-auto opacity-100"
+          : "pointer-events-none opacity-0"
+      }`}
+      aria-hidden={!mobileOpen}
+    >
+      <div ref={mobileLinksRef} className="my-auto flex w-full max-w-sm flex-col items-center gap-4 text-center">
+        <p data-mobile-link className="mb-1 text-xs tracking-[0.3em] uppercase text-amber">
+          Our Locations
+        </p>
+        {locations.map((loc) => (
+          <Link
+            key={loc.slug}
+            href={`/${loc.slug}`}
+            data-mobile-link
+            className={`text-xl font-medium transition-colors ${
+              pathname === `/${loc.slug}` ? "text-amber" : "text-cream/90 hover:text-cream"
+            }`}
+          >
+            {loc.name}
+          </Link>
+        ))}
+
+        <div data-mobile-link className="my-3 h-px w-20 bg-amber/30" />
+
+        {navLinks.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            data-mobile-link
+            className={`text-xl font-medium transition-colors ${
+              pathname === link.href ? "text-amber" : "text-cream"
+            }`}
+          >
+            {link.label}
+          </Link>
+        ))}
+        <Link
+          href="/book"
+          data-mobile-link
+          className="mt-4 rounded-sm border border-amber px-9 py-3.5 text-xs tracking-[0.25em] uppercase text-amber transition-all hover:bg-amber hover:text-background"
+        >
+          Book a Table
+        </Link>
+      </div>
+    </div>
+    </>
   );
 }

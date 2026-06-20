@@ -20,6 +20,7 @@ export interface Location {
   instagramHandle: string;
   heroImage: string;
   menuPdf: string;
+  drinksMenuPdf: string;
 }
 
 export const locations: Location[] = [
@@ -45,6 +46,7 @@ export const locations: Location[] = [
     instagramHandle: "@malt_midrand",
     heroImage: "/images/locations/midrand-hero.jpg",
     menuPdf: "/menus/midrand-menu.pdf",
+    drinksMenuPdf: "/menus/midrand-drinks-menu.pdf",
   },
   {
     name: "Silver Lakes",
@@ -68,6 +70,7 @@ export const locations: Location[] = [
     instagramHandle: "@malt_silverlakes",
     heroImage: "/images/locations/silver-lakes-hero.jpg",
     menuPdf: "/menus/silverlakes-queenswood-menu.pdf",
+    drinksMenuPdf: "/menus/silverlakes-queenswood-drinks-menu.pdf",
   },
   {
     name: "Queenswood",
@@ -91,6 +94,7 @@ export const locations: Location[] = [
     instagramHandle: "@malt_queenswood",
     heroImage: "/images/locations/queenswood-hero.jpg",
     menuPdf: "/menus/silverlakes-queenswood-menu.pdf",
+    drinksMenuPdf: "/menus/silverlakes-queenswood-drinks-menu.pdf",
   },
   {
     name: "Monte Casino",
@@ -114,5 +118,6 @@ export const locations: Location[] = [
     instagramHandle: "@malt_montecasino",
     heroImage: "/images/locations/monte-casino-hero.jpg",
     menuPdf: "/menus/montecasino-menu.pdf",
+    drinksMenuPdf: "/menus/montecasino-drinks-menu.pdf",
   },
 ];
