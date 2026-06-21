@@ -1,99 +1,25 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { locations } from "@/content/locations";
 import { partners } from "@/content/partners";
 import EmberParticles from "@/components/EmberParticles";
 
-gsap.registerPlugin(ScrollTrigger);
-
-function useMouseParallax(ref: React.RefObject<HTMLDivElement | null>, intensity: number = 0.02) {
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const onMove = (e: MouseEvent) => {
-      const xOffset = (e.clientX / window.innerWidth - 0.5) * intensity * 100;
-      const yOffset = (e.clientY / window.innerHeight - 0.5) * intensity * 100;
-      gsap.to(el, {
-        x: -xOffset,
-        y: -yOffset,
-        duration: 0.8,
-        ease: "power2.out",
-      });
-    };
-
-    window.addEventListener("mousemove", onMove, { passive: true });
-    return () => window.removeEventListener("mousemove", onMove);
-  }, [ref, intensity]);
-}
-
-// Card tilt effect
-function useCardTilt(cardRef: React.RefObject<HTMLElement | null>) {
-  const onMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
-    const card = cardRef.current;
-    if (!card) return;
-    const rect = card.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-
-    gsap.to(card, {
-      rotateY: x * 8,
-      rotateX: -y * 8,
-      duration: 0.4,
-      ease: "power2.out",
-    });
-
-    // Move glow element
-    const glow = card.querySelector("[data-glow]") as HTMLElement;
-    if (glow) {
-      gsap.to(glow, {
-        x: x * 80,
-        y: y * 80,
-        opacity: 0.15,
-        duration: 0.4,
-      });
-    }
-  }, [cardRef]);
-
-  const onLeave = useCallback(() => {
-    const card = cardRef.current;
-    if (!card) return;
-    gsap.to(card, { rotateY: 0, rotateX: 0, duration: 0.5, ease: "power2.out" });
-    const glow = card.querySelector("[data-glow]") as HTMLElement;
-    if (glow) {
-      gsap.to(glow, { opacity: 0, duration: 0.4 });
-    }
-  }, [cardRef]);
-
-  return { onMove, onLeave };
-}
-
 function LocationCard({ loc, index }: { loc: typeof locations[0]; index: number }) {
-  const cardRef = useRef<HTMLAnchorElement>(null);
-  const { onMove, onLeave } = useCardTilt(cardRef as React.RefObject<HTMLElement | null>);
-
   return (
     <Link
-      ref={cardRef}
       href={`/${loc.slug}`}
       data-animate
       data-delay={index * 0.08}
-      onMouseMove={onMove}
-      onMouseLeave={onLeave}
-      className="card-3d group relative overflow-hidden rounded-sm border border-charcoal-light p-8 transition-all duration-500 hover:border-amber/40 hover:bg-charcoal/50"
-      style={{ transformStyle: "preserve-3d" }}
+      className="group relative overflow-hidden rounded-sm border border-charcoal-light p-8 transition-[border-color,background-color] duration-300 hover:border-amber/40 hover:bg-charcoal/50"
     >
-      {/* Ambient glow */}
       <div
-        data-glow
-        className="pointer-events-none absolute inset-0 opacity-0"
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
         style={{
-          background: "radial-gradient(circle 120px, rgba(212,145,26,0.2), transparent)",
+          background: "radial-gradient(circle at 50% 100%, rgba(212,145,26,0.12), transparent 55%)",
         }}
       />
       <div className="absolute top-0 left-0 h-1 w-0 bg-amber transition-all duration-700 group-hover:w-full" />
@@ -115,161 +41,52 @@ function LocationCard({ loc, index }: { loc: typeof locations[0]; index: number 
 
 export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null);
-  const heroTextRef = useRef<HTMLDivElement>(null);
-  const sectionsRef = useRef<HTMLDivElement>(null);
 
-  useMouseParallax(heroTextRef, 0.015);
-
-  // Hero entrance animation — text reveal with clip-path
   useEffect(() => {
     const hero = heroRef.current;
     if (!hero) return;
 
     const els = hero.querySelectorAll("[data-hero-animate]");
-
-    gsap.set(els, {
-      y: 60,
-      opacity: 0,
-      filter: "blur(8px)",
-    });
-
-    const tl = gsap.timeline({ delay: 0.3 });
-    tl.to(els, {
-      y: 0,
-      opacity: 1,
-      filter: "blur(0px)",
-      duration: 1.4,
-      ease: "power3.out",
-      stagger: 0.15,
-    });
-  }, []);
-
-  // Scroll-triggered animations — varied entrances
-  useEffect(() => {
-    const container = sectionsRef.current;
-    if (!container) return;
-
-    const sections = container.querySelectorAll("[data-section]");
-    const triggers: ScrollTrigger[] = [];
-
-    sections.forEach((section) => {
-      const items = section.querySelectorAll("[data-animate]");
-
-      items.forEach((item) => {
-        const direction = (item as HTMLElement).dataset.from || "bottom";
-        const initial: gsap.TweenVars = { opacity: 0 };
-
-        switch (direction) {
-          case "left":
-            initial.x = -60;
-            break;
-          case "right":
-            initial.x = 60;
-            break;
-          case "scale":
-            initial.scale = 0.85;
-            break;
-          default:
-            initial.y = 50;
-        }
-
-        gsap.set(item, initial);
+    const context = gsap.context(() => {
+      gsap.set(els, { y: 36, opacity: 0, willChange: "transform, opacity" });
+      gsap.to(els, {
+        y: 0,
+        opacity: 1,
+        duration: 0.9,
+        ease: "power3.out",
+        stagger: 0.12,
+        delay: 0.15,
+        clearProps: "transform,opacity,willChange",
       });
+    }, hero);
 
-      const st = ScrollTrigger.create({
-        trigger: section,
-        start: "top 82%",
-        once: true,
-        onEnter: () => {
-          items.forEach((item, i) => {
-            const direction = (item as HTMLElement).dataset.from || "bottom";
-            const delay = parseFloat((item as HTMLElement).dataset.delay || "0");
-            const target: gsap.TweenVars = {
-              opacity: 1,
-              duration: 0.9,
-              ease: "power2.out",
-              delay: i * 0.12 + delay,
-            };
-
-            switch (direction) {
-              case "left":
-              case "right":
-                target.x = 0;
-                break;
-              case "scale":
-                target.scale = 1;
-                break;
-              default:
-                target.y = 0;
-            }
-
-            gsap.to(item, target);
-          });
-        },
-      });
-      triggers.push(st);
-    });
-
-    // Parallax + zoom on image dividers
-    const dividers = container.querySelectorAll("[data-parallax]");
-    dividers.forEach((div) => {
-      const img = div.querySelector("img");
-      if (!img) return;
-      const st = ScrollTrigger.create({
-        trigger: div,
-        start: "top bottom",
-        end: "bottom top",
-        onUpdate: (self) => {
-          gsap.set(img, {
-            y: self.progress * 60 - 30,
-            scale: 1 + self.progress * 0.1,
-          });
-        },
-      });
-      triggers.push(st);
-    });
-
-    // CTA parallax
-    const ctaBg = container.querySelector("[data-cta-bg]");
-    if (ctaBg) {
-      const st = ScrollTrigger.create({
-        trigger: ctaBg.parentElement,
-        start: "top bottom",
-        end: "bottom top",
-        onUpdate: (self) => {
-          gsap.set(ctaBg, { y: self.progress * 40 - 20 });
-        },
-      });
-      triggers.push(st);
-    }
-
-    return () => triggers.forEach((st) => st.kill());
+    return () => context.revert();
   }, []);
 
   return (
-    <div ref={sectionsRef}>
+    <div>
       {/* ──────────── HERO ──────────── */}
       <section
         ref={heroRef}
-        className="relative flex h-screen items-center justify-center overflow-hidden"
+        className="relative flex min-h-svh items-center justify-center overflow-hidden"
       >
         <Image
           src="/images/locations/midrand-hero.jpg"
           alt="MALT Barrel & Fire Midrand interior"
           fill
-          className="object-cover object-[54%_45%] ken-burns"
+          className="object-cover object-[54%_45%]"
           priority
-          quality={90}
+          quality={80}
+          sizes="100vw"
         />
         <div className="absolute inset-0 bg-black/68" />
         {/* Vignette */}
         <div className="absolute inset-0 vignette" />
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 opacity-60"
           style={{
             background:
               "radial-gradient(ellipse 70% 55% at 50% 85%, rgba(212, 145, 26, 0.12) 0%, transparent 70%)",
-            animation: "fireGlow 4s ease-in-out infinite",
           }}
         />
         <div
@@ -281,18 +98,19 @@ export default function Home() {
 
         <EmberParticles />
 
-        <div ref={heroTextRef} className="relative z-10 mx-auto max-w-5xl px-6 text-center">
+        <div className="relative z-10 mx-auto max-w-5xl px-6 text-center">
           <h1
             data-hero-animate
             className="mx-auto flex items-center justify-center"
           >
             <Image
-              src="/images/logo.png"
+              src="/images/logo-hd-clean.png"
               alt="MALT Barrel & Fire"
-              width={360}
-              height={360}
+              width={1600}
+              height={1600}
               className="h-auto w-[clamp(12rem,28vw,23rem)] max-h-[42vh] object-contain drop-shadow-[0_16px_45px_rgba(0,0,0,0.75)]"
               priority
+              unoptimized
             />
           </h1>
           <div
@@ -357,7 +175,7 @@ export default function Home() {
       </section>
 
       {/* ──────────── IMAGE DIVIDER ──────────── */}
-      <div data-parallax className="relative h-[50vh] overflow-hidden">
+      <div className="relative h-[50vh] overflow-hidden">
         <Image
           src="/images/drinks/spirits-bar.jpg"
           alt="Spirit bottles at the bar"
@@ -439,14 +257,13 @@ export default function Home() {
       {/* ──────────── CTA STRIP ──────────── */}
       <section data-section className="relative overflow-hidden py-36 px-6 md:px-12">
         <Image
-          data-cta-bg
           src="/images/bar-interior.jpg"
           alt="Bar ambience"
           fill
           className="object-cover"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" />
+        <div className="absolute inset-0 bg-background/85" />
 
         <div className="relative text-center">
           <h2

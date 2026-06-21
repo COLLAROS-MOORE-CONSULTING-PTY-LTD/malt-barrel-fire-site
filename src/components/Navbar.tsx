@@ -16,19 +16,36 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [locationsOpen, setLocationsOpen] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
   const pathname = usePathname();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const mobileLinksRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const onScroll = () => {
+    let frame = 0;
+    let lastScrolled = false;
+
+    const update = () => {
+      frame = 0;
       const y = window.scrollY;
-      setScrolled(y > 50);
-      setScrollProgress(Math.min(y / 300, 1));
+      const nextScrolled = y > 50;
+
+      if (nextScrolled !== lastScrolled) {
+        lastScrolled = nextScrolled;
+        setScrolled(nextScrolled);
+      }
+
     };
+
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+
+    frame = window.requestAnimationFrame(update);
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, []);
 
   useEffect(() => {
@@ -84,21 +101,12 @@ export default function Navbar() {
   return (
     <>
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,box-shadow] duration-300 ${
         scrolled || mobileOpen || pathname !== "/"
-          ? "bg-background/95 shadow-lg shadow-black/20 backdrop-blur-lg"
-          : "bg-transparent backdrop-blur-none"
+          ? "bg-background shadow-lg shadow-black/20"
+          : "bg-transparent"
       }`}
     >
-      {/* Scroll progress line */}
-      <div
-        className="absolute bottom-0 left-0 h-px bg-gradient-to-r from-amber/60 via-amber to-amber/60 transition-opacity duration-300"
-        style={{
-          width: `${scrollProgress * 100}%`,
-          opacity: scrolled ? 0.5 : 0,
-        }}
-      />
-
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-12">
         {/* Logo */}
         <Link

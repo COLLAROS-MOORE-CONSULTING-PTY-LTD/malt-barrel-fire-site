@@ -55,23 +55,6 @@ body {
   background: var(--amber);
 }
 
-/* Fire glow keyframes */
-@keyframes fireGlow {
-  0%, 100% { opacity: 0.4; transform: scale(1); }
-  50% { opacity: 0.7; transform: scale(1.05); }
-}
-
-@keyframes emberFloat {
-  0% { transform: translateY(0) scale(1); opacity: 0.8; }
-  50% { transform: translateY(-20px) scale(0.8); opacity: 0.4; }
-  100% { transform: translateY(-40px) scale(0.6); opacity: 0; }
-}
-
-@keyframes subtlePulse {
-  0%, 100% { opacity: 0.15; }
-  50% { opacity: 0.3; }
-}
-
 /* Scroll indicator bounce */
 @keyframes scrollBounce {
   0%, 100% { transform: translateY(0); opacity: 0.6; }
@@ -98,17 +81,6 @@ body {
   background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: textShimmer 4s linear infinite;
-}
-
-/* Ken Burns effect */
-@keyframes kenBurns {
-  0% { transform: scale(1.05) translate(0, 0); }
-  50% { transform: scale(1.12) translate(-1%, -0.5%); }
-  100% { transform: scale(1.05) translate(0, 0); }
-}
-
-.ken-burns {
-  animation: kenBurns 20s ease-in-out infinite;
 }
 
 /* Vignette overlay */
@@ -154,8 +126,16 @@ body {
   opacity: 0.3;
 }
 
-/* Card tilt perspective */
-.card-3d {
-  transform-style: preserve-3d;
-  perspective: 800px;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

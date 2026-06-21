@@ -35,6 +35,7 @@ export default function EmberParticles() {
         filter: blur(${size > 4 ? 1 : 0}px);
         box-shadow: 0 0 ${glowSize}px rgba(212, 145, 26, ${glowIntensity}),
                     0 0 ${glowSize * 2}px rgba(212, 145, 26, ${glowIntensity * 0.3});
+        will-change: transform, opacity;
       `;
       container.appendChild(ember);
       embers.push(ember);
@@ -52,6 +53,9 @@ export default function EmberParticles() {
         bottom: "-2%",
         opacity: 0,
         scale: 1,
+        x: 0,
+        y: 0,
+        force3D: true,
       });
 
       gsap.to(ember, {
@@ -62,6 +66,7 @@ export default function EmberParticles() {
         duration: duration * 0.3,
         delay,
         ease: "power1.out",
+        force3D: true,
         onComplete: () => {
           gsap.to(ember, {
             y: `-=${window.innerHeight * 0.2}`,
@@ -70,6 +75,7 @@ export default function EmberParticles() {
             scale: 0.3,
             duration: duration * 0.7,
             ease: "power1.in",
+            force3D: true,
             onComplete: () => animateEmber(ember, isSpark),
           });
         },
@@ -77,9 +83,9 @@ export default function EmberParticles() {
     }
 
     return () => {
-      embers.forEach((e) => {
-        gsap.killTweensOf(e);
-        e.remove();
+      embers.forEach((ember) => {
+        gsap.killTweensOf(ember);
+        ember.remove();
       });
     };
   }, []);
@@ -87,7 +93,7 @@ export default function EmberParticles() {
   return (
     <div
       ref={containerRef}
-      className="absolute inset-0 overflow-hidden pointer-events-none"
+      className="pointer-events-none absolute inset-0 overflow-hidden [contain:strict]"
       aria-hidden="true"
     />
   );
